@@ -7,6 +7,7 @@ export default function Write() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
+  const [category, setCategory] = useState("");
   const {user} = useContext(Context);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,6 +15,7 @@ export default function Write() {
       username:user.username,
       title,
       desc,
+      categories:category,
     }
     if(file){
       const data = new FormData();
@@ -25,6 +27,10 @@ export default function Write() {
         await axios.post("http://localhost:5000/api/upload", data);
       } catch (err) {}
     }
+    try {
+        await axios.post("http://localhost:5000/api/categories", {"name":newPost.categories})
+        } catch (error) {
+      }
     try {
         const res = await axios.post("http://localhost:5000/api/posts", newPost)
         window.location.replace("/post/" + res.data._id);
@@ -48,6 +54,9 @@ export default function Write() {
                 </label>
                 <input type="file" id="fileInput" style={{display:"none"}} onChange={(e)=> setFile(e.target.files[0])} />
                 <input type="text" placeholder="Title" className="writeInput" autoFocus={true} onChange={e=>setTitle(e.target.value)} />
+            </div>
+            <div className="writeFormGroup">
+                <input type="text" placeholder="category" className="categoryInput" onChange={e=>setCategory(e.target.value)}/>
             </div>
             <div className="writeFormGroup">
                 <textarea placeholder="Tell your story..." type="text" className="writeInput writeText" onChange={e=>setDesc(e.target.value)}/>

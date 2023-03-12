@@ -39,6 +39,15 @@
 .writeInput:focus{
     outline: none;
 }
+.categoryInput{
+    font-size: 10px;
+    border: none;
+    padding: 20px;
+    width: 70vw;
+}
+.categoryInput:focus{
+    outline:none;
+}
 
 .writeText{
     font-size: 20px;
