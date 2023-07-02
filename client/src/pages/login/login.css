@@ -53,3 +53,12 @@
     color: white;
     border-radius: 10px;
 }
+.googleRegisterButton{
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: "white";
+    border: none;
+    color: red;
+    border-radius: 10px;
+    padding: 10px;
+}

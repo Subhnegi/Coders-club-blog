@@ -9,12 +9,25 @@ const categoryRoute = require('./routes/categories');
 const multer = require('multer');
 const cors = require('cors');
 const path = require('path');
+const cookieSession = require('cookie-session');
+const passport=require('passport');
+require('./Passport');
 app.use(
     cors({
-        origin: '*'
-    })
-)
+        origin: 'http://localhost:3000',
+        methods: "GET , POST , PUT , DELETE",
+        credentials:true
+    }
+    ))
 
+app.use(cookieSession({
+    name:"session",
+    keys:["subh"],
+    maxAge:24*60*60*100
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 dotenv.config();
 app.use(express.json());
@@ -35,6 +48,8 @@ const upload = multer({ storage: storage });
 app.post('/api/upload', upload.single('file'), (req, res) => {
     res.status(200).json("file has been uploaded");
 });
+
+
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);

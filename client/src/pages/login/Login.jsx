@@ -23,6 +23,16 @@ export default function Login() {
       dispatch({type:"LOGIN_FAILURE"});
     }
   };
+  const googleclick = async () => {
+    dispatch({type:"LOGIN_START"});
+    try{
+          const res = await axios.post("http://localhost:5000/api/auth/google")
+          dispatch({type:"LOGIN_SUCCESS", payload: res.data});
+    }catch(err){
+      dispatch({type:"LOGIN_FAILURE"});
+    }
+  };
+
   return (
     <div className="login">
         <span className="loginTitle">Login</span>
@@ -38,6 +48,10 @@ export default function Login() {
             <button className="loginButton" type="submit" disabled={isFetching}>Login</button>
             <button className="loginRegisterButton"><Link to="/register" className="link">Register</Link></button>
         </form>
+        <p>Or</p>
+        <div className="googleRegister">
+          <button className="googleRegisterButton" onClick={googleclick}><i className="fa-brands fa-google"></i>  Continue with Google</button>
+        </div>
     </div>
   )
 }

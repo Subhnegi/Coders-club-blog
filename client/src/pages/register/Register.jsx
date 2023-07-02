@@ -22,6 +22,11 @@ export default function Register() {
     setError(true);
   }
   }
+  const googleclick = () => {
+    window.open('http://localhost:5000/api/auth/google','_self');
+  }
+  
+
   return (
     <div className="register">
         <span className="registerTitle">Register</span>
@@ -41,6 +46,10 @@ export default function Register() {
             <button className="registerLoginButton"><Link to="/login" className="link">Login</Link></button>
             {error && <span style={{color:"red", marginTop:"10px"}}>Something went wrong!</span>}
         </form>
+        <p>Or</p>
+        <div className="googleRegister">
+          <button className="googleRegisterButton" onClick={googleclick}><i className="fa-brands fa-google"></i>  Continue with Google</button>
+        </div>
     </div>
   )
 }
